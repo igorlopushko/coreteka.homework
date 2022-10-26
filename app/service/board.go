@@ -9,24 +9,37 @@ import (
 )
 
 type BoardService struct {
-	Board *model.Board
+	Board  *model.Board
+	isInit bool
 }
 
-func (s *BoardService) Init(b *model.Board) error {
-	err := generateBlackHoles(b)
+func NewBoardService(b *model.Board) BoardService {
+	return BoardService{Board: b}
+}
+
+func (s *BoardService) Init() error {
+	err := generateBlackHoles(s.Board)
 	if err != nil {
 		return err
 	}
 
-	err = generateNumbers(b)
+	err = generateNumbers(s.Board)
 	if err != nil {
 		return err
 	}
 
+	s.isInit = true
 	return nil
 }
 
 func (s *BoardService) OpenCell(x, y int) (exploded bool, err error) {
+	// check if the board is initialized before the usage
+	if !s.isInit {
+		err = fmt.Errorf("Init() method of the BoardService has to be called before open any cell")
+		logrus.Error(err)
+		return false, err
+	}
+
 	// check if coordinates fit the board
 	if x < 0 || y < 0 || x > s.Board.Width-1 || y > s.Board.Height-1 {
 		err = fmt.Errorf("the cell is out of range of board coordinates (x:'%d' y:'%d')", x, y)

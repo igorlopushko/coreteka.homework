@@ -118,7 +118,7 @@ func run(cmd *cobra.Command, _ []string) error {
 	}
 
 	b := model.NewBoard(w, h, c)
-	g := service.NewGame(b)
+	g := service.NewGameService(b)
 
 	err := g.Start()
 	if err != nil {
