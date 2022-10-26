@@ -3,12 +3,14 @@
 Proxx game simulation. Just to demonstrate Golang skills. Contains an implementation of the Proxx game algorithm and also includes a console representation of the game.
 ## Configuration
 Configuration is done through the environment variables. Supported configuration parameters:  
-- ```BOARD_WIDTH``` - determines game board width.
-- ```BOARD_WIDTH_MAX``` - determines game board MAX width that could be entered in console.
-- ```BOARD_HEIGHT``` - determines game board height.
-- ```BOARD_HEIGHT_MAX``` - determines game board MAX height that could be entered in console.
-- ```BOARD_BLACK_HOLES_COUNT``` - determines number of black holes on the gaming board.
-- ```LOG_LEVEL``` - determines the logs level of the [logrus](https://github.com/sirupsen/logrus) logger. Could have values such as  ```panic```, ```fatal```, ```error```,  ```warn```, ```info```, ```debug```, ```trace```. By default it is set to ```debug```.
+- ```BOARD_WIDTH``` - determines the game board width.
+- ```BOARD_WIDTH_MIN``` - determines the game board MIN width that could be entered in the console.
+- ```BOARD_WIDTH_MAX``` - determines the game board MAX width that could be entered in the console.
+- ```BOARD_HEIGHT``` - determines the game board height.
+- ```BOARD_HEIGHT_MIN``` - determines the game board MIN height that could be entered in console.
+- ```BOARD_HEIGHT_MAX``` - determines the game board MAX height that could be entered in console.
+- ```BOARD_BLACK_HOLES_COUNT``` - determines the number of black holes on the gaming board.
+- ```LOG_LEVEL``` - determines the logs level of the [logrus](https://github.com/sirupsen/logrus) logger. Could have values such as  ```panic```, ```fatal```, ```error```,  ```warn```, ```info```, ```debug```, ```trace```. By default, it is set to ```debug```.
 ## Usage
 ### Command line
 Direct usage could be done with the following command:  
