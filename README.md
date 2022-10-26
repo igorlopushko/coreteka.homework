@@ -7,8 +7,13 @@ Configuration is done through the environment variables. Supported configuration
 - ```BOARD_WIDTH_MIN``` - determines the game board MIN width that could be entered in the console.
 - ```BOARD_WIDTH_MAX``` - determines the game board MAX width that could be entered in the console.
 - ```BOARD_HEIGHT``` - determines the game board height.
+<<<<<<< HEAD
 - ```BOARD_HEIGHT_MIN``` - determines the game board MIN height that could be entered in the console.
 - ```BOARD_HEIGHT_MAX``` - determines the game board MAX height that could be entered in the console.
+=======
+- ```BOARD_HEIGHT_MIN``` - determines the game board MIN height that could be entered in console.
+- ```BOARD_HEIGHT_MAX``` - determines the game board MAX height that could be entered in console.
+>>>>>>> main
 - ```BOARD_BLACK_HOLES_COUNT``` - determines the number of black holes on the gaming board.
 - ```LOG_LEVEL``` - determines the logs level of the [logrus](https://github.com/sirupsen/logrus) logger. Could have values such as  ```panic```, ```fatal```, ```error```,  ```warn```, ```info```, ```debug```, ```trace```. By default, it is set to ```debug```.
 ## Usage
