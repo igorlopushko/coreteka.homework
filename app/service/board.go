@@ -8,15 +8,18 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// A BoardService defines a domain service to work with the game board.
 type BoardService struct {
 	Board  *model.Board
 	isInit bool
 }
 
+// Creates a new instance of the BoardService.
 func NewBoardService(b *model.Board) BoardService {
 	return BoardService{Board: b}
 }
 
+// Initializes game board state. Has to be called before opening any cell.
 func (s *BoardService) Init() error {
 	err := generateBlackHoles(s.Board)
 	if err != nil {
@@ -32,7 +35,8 @@ func (s *BoardService) Init() error {
 	return nil
 }
 
-func (s *BoardService) OpenCell(x, y int) (exploded bool, err error) {
+// Opens a cell with the specified coordinates.
+func (s *BoardService) OpenCell(x, y int) (trapped bool, err error) {
 	// check if the board is initialized before the usage
 	if !s.isInit {
 		err = fmt.Errorf("Init() method of the BoardService has to be called before open any cell")
@@ -40,7 +44,7 @@ func (s *BoardService) OpenCell(x, y int) (exploded bool, err error) {
 		return false, err
 	}
 
-	// check if coordinates fit the board
+	// check if the coordinates fit the board
 	if x < 0 || y < 0 || x > s.Board.Width-1 || y > s.Board.Height-1 {
 		err = fmt.Errorf("the cell is out of range of board coordinates (x:'%d' y:'%d')", x, y)
 		logrus.Error(err)
@@ -53,7 +57,7 @@ func (s *BoardService) OpenCell(x, y int) (exploded bool, err error) {
 		return true, err
 	}
 
-	// if the cell is empty apply flood fill algorithm
+	// if the cell is empty apply the flood fill algorithm
 	if s.Board.Cells[y][x].Type == model.Empty {
 		err := floodFill(s.Board, x, y)
 		if err != nil {
@@ -148,13 +152,13 @@ func floodFill(b *model.Board, x, y int) error {
 			for iX := innerX; xCount < xLength; iX++ {
 				xCount++
 
-				// skip cell if it is a hole or same cell as caller
+				// skip cell if it is a hole or the same cell as the caller
 				if b.Cells[iY][iX].Type == model.Hole ||
 					iX == p.X && iY == p.Y {
 					continue
 				}
 
-				// append cell to stack to process it further if it is empty cell
+				// append cell to stack to process it further if it is an empty cell
 				if b.Cells[iY][iX].Type == model.Empty &&
 					b.Cells[iY][iX].Visibility == model.Closed {
 					stack = append(stack, model.Point{X: iX, Y: iY})

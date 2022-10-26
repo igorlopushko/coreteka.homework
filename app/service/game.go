@@ -1,3 +1,4 @@
+// Package service determines domain services behavior.
 package service
 
 import (
@@ -8,6 +9,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// A GameService defines a domain service to proceed with the game.
 type GameService struct {
 	Board      *model.Board
 	IsGameOver bool
@@ -15,6 +17,7 @@ type GameService struct {
 	isInit     bool
 }
 
+// Creates a new instance of the GameService.
 func NewGameService(b *model.Board) *GameService {
 	svc := NewBoardService(b)
 	return &GameService{
@@ -23,6 +26,7 @@ func NewGameService(b *model.Board) *GameService {
 	}
 }
 
+// Starts the game. Has to be called before making a step in the game.
 func (g *GameService) Start() error {
 	err := g.boardSvc.Init()
 	if err != nil {
@@ -33,6 +37,7 @@ func (g *GameService) Start() error {
 	return nil
 }
 
+// Makes a step in the game by specifying coordinates.
 func (g *GameService) MakeStep(x, y int) (isAlreadyOpened bool, err error) {
 	// check if the game has been started
 	if !g.isInit {
@@ -56,6 +61,7 @@ func (g *GameService) MakeStep(x, y int) (isAlreadyOpened bool, err error) {
 	return false, nil
 }
 
+// Checks if the game is finished and the player has won.
 func (g *GameService) CheckIfWin() bool {
 	opened := 0
 	for _, r := range g.Board.Cells {
@@ -69,6 +75,7 @@ func (g *GameService) CheckIfWin() bool {
 	return g.Board.BlackHolesCount+opened == g.Board.Width*g.Board.Height
 }
 
+// Outputs a game board to the console.
 func (g *GameService) PrintBoard() {
 	fmt.Print("  ")
 

@@ -1,3 +1,4 @@
+// Package rand describes the behavior of random coordinates determination.
 package rand
 
 import (
@@ -7,6 +8,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// Gets random coordination according to the specified width and height of the board.
 func GetRandomCoordinates(w, h int) (x, y int, err error) {
 	x, err = getRandomNumber(w)
 	if err != nil {
