@@ -109,9 +109,9 @@ func run(cmd *cobra.Command, _ []string) error {
 	}
 
 	if !defaultConfig {
-		w = getInputIntValue("\nPlease enter the board width", 0, config.App.Board.WidthMax-1)
-		h = getInputIntValue("Please enter the board height", 0, config.App.Board.HeightMax-1)
-		c = getInputIntValue("Please enter the black holes count", 0, w*h)
+		w = getInputIntValue("\nPlease enter the board width", config.App.Board.WidthMin, config.App.Board.WidthMax)
+		h = getInputIntValue("Please enter the board height", config.App.Board.HeightMin, config.App.Board.HeightMax)
+		c = getInputIntValue("Please enter the black holes count", 1, w*h-1)
 
 		fmt.Println("\nYour settings:")
 		fmt.Printf("Height: '%d'; Width: '%d'; Black holes count: '%d'.\n", w, h, c)
@@ -128,8 +128,8 @@ func run(cmd *cobra.Command, _ []string) error {
 	g.PrintBoard()
 
 	for {
-		x := getInputIntValue("\nPlease enter X", -1, b.Width-1)
-		y := getInputIntValue("\nPlease enter Y", -1, b.Height-1)
+		x := getInputIntValue("\nPlease enter X", 0, b.Width-1)
+		y := getInputIntValue("\nPlease enter Y", 0, b.Height-1)
 
 		isAlreadyOpened, err := g.MakeStep(x, y)
 
@@ -173,8 +173,8 @@ func getInputIntValue(m string, min, max int) int {
 		}
 
 		// check if the number is in the range
-		if v <= min || v > max {
-			fmt.Printf("Wrong input. Value is less than 0 or above its max value: '%d'.\n", max)
+		if v < min || v > max {
+			fmt.Printf("Wrong input. Value is less than min value: '%d' or above its max value: '%d'.\n", min, max)
 			continue
 		}
 

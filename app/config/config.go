@@ -22,9 +22,11 @@ type Config struct {
 // Represents game board configuration type.
 type BoardConfig struct {
 	Width           int `env:"BOARD_WIDTH" envDefault:"8"`
+	WidthMin        int `env:"BOARD_WIDTH_MIN" envDefault:"3"`
 	WidthMax        int `env:"BOARD_WIDTH_MAX" envDefault:"10"`
-	Height          int `env:"BOARD_HEIGHT" envDefault:"10"`
-	HeightMax       int `env:"BOARD_HEIGHT_MAX" envDefault:"8"`
+	Height          int `env:"BOARD_HEIGHT" envDefault:"8"`
+	HeightMin       int `env:"BOARD_HEIGHT_MIN" envDefault:"3"`
+	HeightMax       int `env:"BOARD_HEIGHT_MAX" envDefault:"10"`
 	BlackHolesCount int `env:"BOARD_BLACK_HOLES_COUNT" envDefault:"10"`
 }
 
